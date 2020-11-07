@@ -5,21 +5,18 @@
     }
     const hash = bcrypt.hashSync(password);
     db.transaction(trx => {
-        trx.insert({
-            hash: hash,
-            email: email
-        })
-        .into('login')
-        .returning('email')
+        trx.insert({hash,email}).into('login').returning('email')
         .then(loginEmail => {
-        return trx('users')
+            return trx('users')
             .returning('*')
             .insert({
                 email: loginEmail[0],
-                name: name,
+                name,
+                profileimage: null,
                 joined: new Date()
             })
             .then(user => {
+                console.log(user[0])
                 res.json(user[0])
             })
         })
