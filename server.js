@@ -13,14 +13,14 @@ const image = require('./controllers/image');
 const profileChanger = require('./controllers/profileChanger');
 
 const db = knex({
-    client: 'pg',
-    connection: {
-      host : '127.0.0.1',
-      user : 'postgres',
-      password : 'test',
-      database : 'smart-brain'
+  client: 'pg',
+  connection: {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
     }
-  });
+  }
+});
 const app =express();
 
 
@@ -36,4 +36,6 @@ app.put('/image', (req, res) => image.handleImage(req, res, db));
 app.post('/imageurl', (req, res) => image.handleApiCall(req, res));
 app.post('/changeProfilePic',  upload,(req, res, next) => profileChanger.changeProfilePic(req, res, next, db));
 
-app.listen(3000, () => console.log("app running on port 3000"))
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`app running on port ${process.env.PORT ? process.env.PORT : 3000}`);
+})
