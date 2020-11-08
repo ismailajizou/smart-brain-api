@@ -1,4 +1,7 @@
- const handleRegister = (req, res, db, bcrypt) => {
+const fs = require('fs');
+const image = fs.readFileSync('assets/logo.jpg');
+
+const handleRegister = (req, res, db, bcrypt) => {
     const { email, name, password } = req.body;
     if(!email || !name || !password){
         return res.status(400).json('unable to register');
@@ -12,11 +15,10 @@
             .insert({
                 email: loginEmail[0],
                 name,
-                profileimage: null,
+                profileimage: image,
                 joined: new Date()
             })
             .then(user => {
-                console.log(user[0])
                 res.json(user[0])
             })
         })
