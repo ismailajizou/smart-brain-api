@@ -24,6 +24,10 @@ const db = knex({
 const app =express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", '*');
+  next();
+});
 
 
 app.get('/', (req, res) => res.send(db.users))
