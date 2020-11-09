@@ -4,7 +4,7 @@ const image = fs.readFileSync('assets/logo.jpg');
 const handleRegister = (req, res, db, bcrypt) => {
     const { email, name, password } = req.body;
     const reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,7})+$/;
-    if(!email || !name || password.length() <= 6){
+    if(!email || !name || password.length <= 6){
         return res.status(400).json('unable to register');
     }
     if( !reg.test(email) ){
