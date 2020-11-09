@@ -3,8 +3,12 @@ const image = fs.readFileSync('assets/logo.jpg');
 
 const handleRegister = (req, res, db, bcrypt) => {
     const { email, name, password } = req.body;
-    if(!email || !name || !password){
+    const reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,7})+$/;
+    if(!email || !name || password.length() <= 6){
         return res.status(400).json('unable to register');
+    }
+    if( !reg.test(email) ){
+        return res.status(400).json('Unvalid email !');
     }
     const hash = bcrypt.hashSync(password);
     db.transaction(trx => {
