@@ -1,7 +1,8 @@
 const changeProfilePic = (req, res, db) => {
+    console.log(req.file)
     if((req.file.mimetype === 'image/jpeg' 
     || req.file.mimetype === 'image/png')
-    && req.file.size <= 250000){
+    && req.file.size <= 100000){
         db('users')
         .update({ profileimage: req.file.buffer })
         .returning('profileimage')
