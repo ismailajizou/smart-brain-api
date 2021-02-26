@@ -1,5 +1,6 @@
 const fs = require('fs');
-const image = fs.readFileSync('assets/logo.jpg');
+const Logo = fs.readFileSync('assets/logo.png');
+
 
 const handleRegister = (req, res, db, bcrypt) => {
     const { email, name, password } = req.body;
@@ -19,7 +20,7 @@ const handleRegister = (req, res, db, bcrypt) => {
             .insert({
                 email: loginEmail[0],
                 name,
-                profileimage: image,
+                profileimage: Logo,
                 joined: new Date()
             })
             .then(user => {
