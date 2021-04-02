@@ -2,25 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt= require('bcrypt-nodejs');
 const cors = require('cors');
-const knex = require('knex');
 const multer = require('multer');
 const upload = multer().single('image');
 
+const db = require("./database/connection");
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 const profileChanger = require('./controllers/profileChanger');
 
-const db = knex({
-  client: 'pg',
-  connection: {
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  }
-});
 
 
 const app =express();
