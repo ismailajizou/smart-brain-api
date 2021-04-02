@@ -12,8 +12,6 @@ const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 const profileChanger = require('./controllers/profileChanger');
 
-
-
 const app =express();
 app.use(cors());
 app.use(bodyParser.json());

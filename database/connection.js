@@ -1,4 +1,6 @@
-const db = require('knex')({
+const knex = require('knex');
+
+const db = knex({
     client: 'pg',
     connection: {
       connectionString: process.env.DATABASE_URL,
@@ -7,4 +9,5 @@ const db = require('knex')({
       }
     }
 });
-module.exports = { db }
+
+module.exports = db;
