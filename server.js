@@ -22,7 +22,7 @@ app.post('/register', (req, res) => register.handleRegister(req, res, db, bcrypt
 app.get('/profile/:id', (req, res) => profile.handleProfile(req, res, db));
 app.post('/imageurl', (req, res) => image.handleApiCall(req, res));
 app.put('/image', (req, res) => image.handleImage(req, res, db));
-app.post('/changeProfilePic',  upload, (req, res) => profileChanger.changeProfilePic(req, res, db));
+app.post('/changeProfilePic/:id',  upload, (req, res) => profileChanger.changeProfilePic(req, res, db));
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`app running on port ${process.env.PORT ? process.env.PORT : 3000}`);
