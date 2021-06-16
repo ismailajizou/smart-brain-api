@@ -1,28 +1,25 @@
-const sharp = require('sharp');
-
-const changeProfilePic = (req, res, db) => {
-    const image = req.file;
+const changeProfilePic = async (req, res, db) => {
+    const image  = req.file;
     const { id } = req.params;
-    if((image.mimetype === 'image/jpeg' 
-    || image.mimetype === 'image/png')
-    && image.size <= 1024 * 100){
-        sharp(image.buffer).resize({
-            width: 100,
-            height: 100,
-            position: 'center',
-        }).toBuffer().then(buffer => 
-            db('users')
-            .update({ profileimage: buffer })
-            .where({id})
-            .returning('profileimage')
-            .then(response =>  res.json(response))
-            .catch(err => res.json("Ooops! something went wrong!"))
-        )
+    const validImage = (image.mimetype === 'image/jpeg' || image.mimetype === 'image/png') && image.size <= 1024 * 1024;
+
+    if(validImage){
+        try{
+            const buffer = await require("sharp")(image.buffer).resize({
+                width: 100,
+                height: 100,
+                position: 'center',
+            }).png().toBuffer();
+            const string = buffer.toString('base64');
+            const [avatar] = await db('user').update({avatar: `data:image/png;base64,${string}`}).where({id}).returning("avatar");
+            
+            res.json({avatar});
+        } catch(err) {
+            res.status(400).json({msg: "Unable to change profile"});
+        }
     } else {
-        return res.status(400).json('file format not supported: only .jpg and .png allowed')
+        res.status(400).json({msg: 'Image NOT Valid'});
     }
 }
 
-module.exports = {
-    changeProfilePic
-}
+module.exports = changeProfilePic;

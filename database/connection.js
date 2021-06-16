@@ -1,6 +1,14 @@
-const knex = require('knex');
+// const db = require('knex')({
+//   client: 'pg',
+//   connection: {
+//     host : '127.0.0.1',
+//     user : 'postgres',
+//     password : 'test',
+//     database : 'brain'
+//   }
+// });
 
-const db = knex({
+const db = require('knex')({
     client: 'pg',
     connection: {
       connectionString: process.env.DATABASE_URL,
@@ -9,5 +17,4 @@ const db = knex({
       }
     }
 });
-
 module.exports = db;
