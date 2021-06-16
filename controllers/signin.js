@@ -16,7 +16,6 @@ const handleSignin = async (req, res, db, bcrypt) => {
             res.status(400).json({msg: 'Wrong password !!'});
         }
     } catch (err) {
-        console.log(err);
         res.status(400).json({msg: 'Wrong credentials'});
     }
 }
