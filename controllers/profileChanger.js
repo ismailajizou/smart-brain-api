@@ -12,7 +12,6 @@ const changeProfilePic = async (req, res, db) => {
             }).png().toBuffer();
             const string = buffer.toString('base64');
             const [avatar] = await db('user').update({avatar: `data:image/png;base64,${string}`}).where({id}).returning("avatar");
-            
             res.json({avatar});
         } catch(err) {
             res.status(400).json({msg: "Unable to change profile"});

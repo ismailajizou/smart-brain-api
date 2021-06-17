@@ -1,4 +1,4 @@
-const connection = process.env.NODE_ENV.trim() === "dev" ? 
+const connection = process.env.NODE_ENV === "dev" ? 
 ({
   host : '127.0.0.1',
   user : 'postgres',
