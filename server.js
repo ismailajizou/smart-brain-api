@@ -24,7 +24,6 @@ app.put('/image', (req, res) => handleImage(req, res, db));
 app.post('/changeProfilePic/:id',  upload, (req, res) => changeProfilePic(req, res, db));
 app.post('/deleteAccount/:id', (req, res) => deleteAccount(req, res, db, bcrypt));
 
-
 app.all('*', (req, res) => res.status(404).send("Page Not Found"));
 
 app.listen(process.env.PORT || 3000, () => {

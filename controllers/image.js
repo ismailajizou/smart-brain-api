@@ -4,9 +4,7 @@ const app = new Clarifai.App({ apiKey: 'ecee88708b03449e9d7664f7987c6f2c' });
 const handleApiCall = (req, res) => {
   app.models
     .predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
-    .then(data => {
-        res.json(data);
-    })
+    .then(data => res.json(data))
     .catch(err => res.status(400).json({msg: 'Something went wrong when fetching API'}));
 }
 
@@ -25,6 +23,6 @@ const handleApiCall = (req, res) => {
     }
 }
 module.exports = {
-    handleImage,
-    handleApiCall
+  handleImage,
+  handleApiCall
 }
