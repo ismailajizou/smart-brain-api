@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => res.send(db.user));
 app.post("/signin", (req, res) => handleSignin(req, res, db, bcrypt));
 app.post('/register', (req, res) => handleRegister(req, res, db, bcrypt));
-app.post('/imageurl', (req, res) => handleApiCall(req, res));
+app.post('/imageUrl', (req, res) => handleApiCall(req, res));
 app.put('/image', (req, res) => handleImage(req, res, db));
 app.post('/changeProfilePic/:id',  upload, (req, res) => changeProfilePic(req, res, db));
 app.post('/deleteAccount/:id', (req, res) => deleteAccount(req, res, db, bcrypt));
